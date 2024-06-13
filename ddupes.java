@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2024 DigitalBSD. All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
+ * DISCLAIMER: DigitalBSD is not responsible for any data loss incurred from using this program.
+ */
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
