@@ -92,4 +92,10 @@ License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-This README provides an overview of the ddupes application, detailing its features, usage, and the purpose of each class and method. For further information or detailed documentation, refer to the source code comments and Javadoc annotations.
+DISCLAIMER: DigitalBSD provides the ddupes program "as is" without warranty of any kind, either
+express or implied, including, but not limited to, the implied warranties of merchantability and fitness
+for a particular purpose. DigitalBSD assumes no responsibility for any data loss or other damages
+that may occur from the use of the ddupes program. Users are solely responsible for their data and are
+encouraged to back up important files before using the ddupes program.
+
+Copyright (c) 2024 DigitalBSD. All rights reserved.
