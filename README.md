@@ -1,15 +1,16 @@
 DDupes
 
 DDupes is a Java application for finding and handling duplicate files in specified directories. It provides functionality to recursively scan directories, compute file hashes, identify duplicates, and optionally delete duplicate files, keeping only the most recently modified file.
+
 Features
 
-    Recursive directory scanning
-    File hashing using MD5
-    Duplicate file identification
-    Option to display summary or detailed duplicate information
-    Dry run mode to preview deletions
-    Preserves specified directories from deletions
-    Deletes empty directories after removing files
+    * Recursive directory scanning
+    * File hashing using MD5
+    * Duplicate file identification
+    * Option to display summary or detailed duplicate information
+    * Dry run mode to preview deletions
+    * Preserves specified directories from deletions
+    * Deletes empty directories after removing files
 
 Requirements
 
@@ -17,6 +18,7 @@ Requirements
     Apache Commons Codec library
 
 Usage
+
 Command-Line Arguments
 
     -r: Recursively scan directories.
@@ -27,69 +29,62 @@ Command-Line Arguments
 
 Example Usage
 
-sh
-
-java DDupes -rs /users/scott/misc
-java DDupes -rdsn /users/scott/documents /users/scott/documents_copy -p /users/scott/documents/test
+    java DDupes -rs /users/scott/misc
+    java DDupes -rdsn /users/scott/documents /users/scott/documents_copy -p /users/scott/documents/test
 
 Classes and Methods
+
 DDupes
 
 The main class that initializes logging, parses command-line arguments, processes directories, finds duplicates, and handles file deletions.
 
-    main(String[] args): The entry point of the application.
-    configureLogging(): Configures logging based on a properties file or creates a default configuration.
-    parseArguments(String[] args): Parses command-line arguments.
+    * main(String[] args): The entry point of the application.
+    * configureLogging(): Configures logging based on a properties file or creates a default configuration.
+    * parseArguments(String[] args): Parses command-line arguments.
 
 DirectoryProcessor
 
 Processes directories to find and hash files, storing the results in a data map.
 
-    processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap): Processes a directory to find and hash files.
-    md5hash(Path file): Computes the MD5 hash of a file.
+    * processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap): Processes a directory to find and hash files.
+    * md5hash(Path file): Computes the MD5 hash of a file.
 
 DuplicateFinder
 
 Finds and displays duplicate files based on their hash values.
 
-    findDupes(Map<String, List<Data>> dataMap, boolean isSummary): Finds and displays duplicate files.
+    * findDupes(Map<String, List<Data>> dataMap, boolean isSummary): Finds and displays duplicate files.
 
 FileDeleter
 
 Deletes duplicate files and empty directories.
 
-    deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
-    deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths): Deletes empty directories.
-    handleIOException(IOException e, Path path): Handles IOExceptions that may occur during file operations.
+    * deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
+    * deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths): Deletes empty directories.
+    * handleIOException(IOException e, Path path): Handles IOExceptions that may occur during file operations.
 
 Data
 
 Represents a file with its associated metadata.
 
-    Data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate): Constructs a new Data object with the specified file metadata.
-    getFileName(): Returns the name of the file.
-    getFileHash(): Returns the hash of the file.
-    getFileSize(): Returns the size of the file in bytes.
-    getFileCreationDate(): Returns the creation date of the file.
-    getFileModifiedDate(): Returns the last modified date of the file.
+    * Data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate): Constructs a new Data object with the specified file metadata.
+    * getFileName(): Returns the name of the file.
+    * getFileHash(): Returns the hash of the file.
+    * getFileSize(): Returns the size of the file in bytes.
+    * getFileCreationDate(): Returns the creation date of the file.
+    * getFileModifiedDate(): Returns the last modified date of the file.
 
 Logging
 
 Logging is configured using a properties file located at /Users/scott/logging.properties. If the file does not exist, a default configuration is created.
+
 Build and Run
 
-    Ensure Java is installed on your system.
-    Add Apache Commons Codec library to your project dependencies.
-    Compile the Java files:
-
-    sh
-
-javac -cp .:commons-codec-1.15.jar *.java
-
-Run the application:
-
-sh
-
+1. Ensure Java is installed on your system.
+2. Add Apache Commons Codec library to your project dependencies.
+3. Compile the Java files:
+    javac -cp .:commons-codec-1.15.jar *.java
+4. Run the application:
     java -cp .:commons-codec-1.15.jar DDupes
 
 License
