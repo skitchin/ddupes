@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-
 public class Main {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
