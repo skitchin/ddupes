@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2024 DigitalBSD. All rights reserved.
+ * Copyright (c) 2024 Scott Kitchin. All rights reserved.
  *
  * Licensed under the MIT License.
  *
