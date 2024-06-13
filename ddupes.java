@@ -12,6 +12,7 @@ import java.util.logging.*;
  * It finds and processes duplicate files in specified directories based on command-line arguments.
  */
 public class ddupes {
+    private static final String VERSION = "0.0.1";
     private static final Logger logger = Logger.getLogger(ddupes.class.getName());
     private static final String LOGGING_PROPERTIES_PATH = "/Users/scott/logging.properties";
 
@@ -124,6 +125,9 @@ public class ddupes {
                     while (i + 1 < args.length && !args[i + 1].startsWith("-")) {
                         preservePaths.add(args[++i]);
                     }
+                }
+                if (arg.equals("-v")) {
+                    System.out.println("ddupes version: " + VERSION);
                 }
             } else {
                 directoryPaths.add(arg);
