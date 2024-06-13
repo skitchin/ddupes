@@ -7,10 +7,21 @@ import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.*;
 
+/**
+ * Main class for the DDupes application.
+ * It finds and processes duplicate files in specified directories based on command-line arguments.
+ */
 public class DDupes {
     private static final Logger logger = Logger.getLogger(DDupes.class.getName());
     private static final String LOGGING_PROPERTIES_PATH = "/Users/scott/logging.properties";
 
+    /**
+     * Main method for the DDupes application.
+     *
+     * @param args Command-line arguments specifying directories and options.
+     * @throws IOException               If an I/O error occurs.
+     * @throws NoSuchAlgorithmException If the specified algorithm is not available.
+     */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         configureLogging();
         Map<String, List<Data>> dataMap = new HashMap<>();
@@ -46,6 +57,11 @@ public class DDupes {
         }
     }
 
+    /**
+     * Configures logging for the application.
+     * If a logging properties file exists, it loads the configuration from the file.
+     * Otherwise, it creates a default logging properties file.
+     */
     private static void configureLogging() {
         // Check if logging.properties exists in resources
         InputStream inputStream = DDupes.class.getResourceAsStream(LOGGING_PROPERTIES_PATH);
@@ -64,6 +80,9 @@ public class DDupes {
         createDefaultLoggingProperties();
     }
 
+    /**
+     * Creates a default logging properties file with predefined configurations.
+     */
     private static void createDefaultLoggingProperties() {
         try (OutputStream outputStream = Files.newOutputStream(Paths.get(LOGGING_PROPERTIES_PATH))) {
             Properties properties = new Properties();
@@ -80,6 +99,12 @@ public class DDupes {
         }
     }
 
+    /**
+     * Parses command-line arguments and returns a ParsedArgs object.
+     *
+     * @param args Command-line arguments to parse.
+     * @return ParsedArgs object containing the parsed command-line arguments.
+     */
     private static ParsedArgs parseArguments(String[] args) {
         boolean isRecursive = false;
         boolean isDelete = false;
@@ -108,6 +133,9 @@ public class DDupes {
         return new ParsedArgs(isRecursive, isDelete, isSummary, isDryRun, preservePaths, directoryPaths);
     }
 
+    /**
+     * Class to hold parsed command-line arguments.
+     */
     static class ParsedArgs {
         boolean isRecursive;
         boolean isDelete;
@@ -116,6 +144,16 @@ public class DDupes {
         List<String> preservePaths;
         List<String> directoryPaths;
 
+        /**
+         * Constructor for ParsedArgs.
+         *
+         * @param isRecursive    Whether to process directories recursively.
+         * @param isDelete       Whether to delete duplicate files.
+         * @param isSummary      Whether to display a summary of duplicate files.
+         * @param isDryRun       Whether to perform a dry run (no actual deletions).
+         * @param preservePaths  List of paths to preserve.
+         * @param directoryPaths List of directory paths to process.
+         */
         ParsedArgs(boolean isRecursive, boolean isDelete, boolean isSummary, boolean isDryRun, List<String> preservePaths, List<String> directoryPaths) {
             this.isRecursive = isRecursive;
             this.isDelete = isDelete;

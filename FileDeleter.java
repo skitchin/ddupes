@@ -3,8 +3,18 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * Class for deleting duplicate files and empty directories.
+ */
 public class FileDeleter {
 
+    /**
+     * Deletes duplicate files from the data map, keeping the most recently modified file.
+     *
+     * @param dataMap       The map containing file data, keyed by file hash.
+     * @param preservePaths The list of directory paths to preserve from deletion.
+     * @param isDryRun      Whether to perform a dry run (no actual deletions).
+     */
     public static void deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun) {
         Set<Path> directoriesToCheck = new HashSet<>();
 
@@ -50,6 +60,12 @@ public class FileDeleter {
         }
     }
 
+    /**
+     * Deletes empty directories from the set of directories to check.
+     *
+     * @param directoriesToCheck The set of directories to check and delete if empty.
+     * @param preservePaths      The list of directory paths to preserve from deletion.
+     */
     public static void deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths) {
         Set<Path> checkedDirectories = new HashSet<>();
 
@@ -77,6 +93,12 @@ public class FileDeleter {
         });
     }
 
+    /**
+     * Handles IOException that may occur during file operations.
+     *
+     * @param e    The IOException that occurred.
+     * @param path The path associated with the IOException.
+     */
     private static void handleIOException(IOException e, Path path) {
         if (e instanceof NoSuchFileException) {
             // Directory already deleted, ignore

@@ -11,9 +11,21 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Processes directories to find and hash files, storing the results in a data map.
+ */
 public class DirectoryProcessor {
     private static final Logger logger = Logger.getLogger(DirectoryProcessor.class.getName());
 
+    /**
+     * Processes a directory to find and hash files, storing the results in a data map.
+     *
+     * @param startPath  The path to start processing.
+     * @param isRecursive Whether to process directories recursively.
+     * @param dataMap     The map to store file data, keyed by file hash.
+     * @throws IOException               If an I/O error occurs.
+     * @throws NoSuchAlgorithmException  If the MD5 algorithm is not available.
+     */
     public static void processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap) throws IOException, NoSuchAlgorithmException {
         try (Stream<Path> stream = isRecursive ? Files.walk(startPath).parallel() : Files.list(startPath).parallel()) {
             stream.filter(Files::isRegularFile)
@@ -34,6 +46,14 @@ public class DirectoryProcessor {
         }
     }
 
+    /**
+     * Computes the MD5 hash of a file.
+     *
+     * @param file The file to hash.
+     * @return The MD5 hash of the file as a hex string.
+     * @throws IOException               If an I/O error occurs.
+     * @throws NoSuchAlgorithmException  If the MD5 algorithm is not available.
+     */
     public static String md5hash(Path file) throws IOException, NoSuchAlgorithmException {
         try (InputStream is = Files.newInputStream(file)) {
             if (is == null) {

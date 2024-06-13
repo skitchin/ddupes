@@ -4,8 +4,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Class for finding and displaying duplicate files based on their hash values.
+ */
 public class DuplicateFinder {
 
+    /**
+     * Finds and displays duplicate files.
+     *
+     * @param dataMap   The map containing file data, keyed by file hash.
+     * @param isSummary Whether to display a summary of directories containing duplicates or detailed duplicate file information.
+     */
     public static void findDupes(Map<String, List<Data>> dataMap, boolean isSummary) {
         if (isSummary) {
             // Print only directories containing duplicates
