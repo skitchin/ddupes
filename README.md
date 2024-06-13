@@ -88,9 +88,7 @@ Build and Run
 4. Run the application:
     java -cp .:commons-codec-1.15.jar ddupes
 
-License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+LICENSE: This project is licensed under the MIT License. See the LICENSE file for details.
 
 DISCLAIMER: DigitalBSD provides the ddupes program "as is" without warranty of any kind, either
 express or implied, including, but not limited to, the implied warranties of merchantability and fitness
