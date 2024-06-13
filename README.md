@@ -29,12 +29,12 @@ Command-Line Arguments
 
 Example Usage
 
-    java ddupes -rs /users/scott/misc
-    java ddupes -rdsn /users/scott/documents /users/scott/documents_copy -p /users/scott/documents/test
+    java ddupes -rs /documents
+    java ddupes -rdsn /documents -p /documents/test
 
 Classes and Methods
 
-DDupes
+[ddupes]
 
 The main class that initializes logging, parses command-line arguments, processes directories, finds duplicates, and handles file deletions.
 
@@ -42,20 +42,20 @@ The main class that initializes logging, parses command-line arguments, processe
     * configureLogging(): Configures logging based on a properties file or creates a default configuration.
     * parseArguments(String[] args): Parses command-line arguments.
 
-DirectoryProcessor
+[directoryprocessor]
 
 Processes directories to find and hash files, storing the results in a data map.
 
     * processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap): Processes a directory to find and hash files.
     * md5hash(Path file): Computes the MD5 hash of a file.
 
-DuplicateFinder
+[duplicatefinder]
 
 Finds and displays duplicate files based on their hash values.
 
     * findDupes(Map<String, List<data>> dataMap, boolean isSummary): Finds and displays duplicate files.
 
-FileDeleter
+[filedeleter]
 
 Deletes duplicate files and empty directories.
 
@@ -63,7 +63,7 @@ Deletes duplicate files and empty directories.
     * deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths): Deletes empty directories.
     * handleIOException(IOException e, Path path): Handles IOExceptions that may occur during file operations.
 
-Data
+[data]
 
 Represents a file with its associated metadata.
 
