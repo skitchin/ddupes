@@ -26,6 +26,7 @@ Command-Line Arguments
     -s: Display a summary of directories containing duplicates.
     -n: Perform a dry run (no actual deletions).
     -p [paths]: Preserve specified directories from deletion.
+    -v: Display ddupes release version.
 
 Example Usage
 
