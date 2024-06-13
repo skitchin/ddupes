@@ -3,7 +3,11 @@
  *
  * Licensed under the MIT License.
  *
- * DISCLAIMER: DigitalBSD is not responsible for any data loss incurred from using this program.
+ * DISCLAIMER: DigitalBSD provides the ddupes program "as is" without warranty of any kind, either
+ * express or implied, including, but not limited to, the implied warranties of merchantability and fitness
+ * for a particular purpose. DigitalBSD assumes no responsibility for any data loss or other damages
+ * that may occur from the use of the ddupes program. Users are solely responsible for their data and are
+ * encouraged to back up important files before using the ddupes program.
  */
 
 import java.io.IOException;
