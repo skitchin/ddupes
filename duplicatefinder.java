@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 /**
  * Class for finding and displaying duplicate files based on their hash values.
  */
-public class DuplicateFinder {
+public class duplicatefinder {
 
     /**
      * Finds and displays duplicate files.
@@ -15,7 +15,7 @@ public class DuplicateFinder {
      * @param dataMap   The map containing file data, keyed by file hash.
      * @param isSummary Whether to display a summary of directories containing duplicates or detailed duplicate file information.
      */
-    public static void findDupes(Map<String, List<Data>> dataMap, boolean isSummary) {
+    public static void findDupes(Map<String, List<data>> dataMap, boolean isSummary) {
         if (isSummary) {
             // Print only directories containing duplicates
             Set<Path> duplicateDirectories = dataMap.values().stream()
@@ -32,7 +32,7 @@ public class DuplicateFinder {
                 if (fileList.size() > 1) {
                     System.out.println("Duplicates for hash " + key + ":");
                     boolean first = true;
-                    for (Data file : fileList) {
+                    for (data file : fileList) {
                         System.out.println((first ? "[+]" : "[-]") + " " + file.getFileName());
                         first = false;
                     }

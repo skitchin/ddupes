@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 /**
  * Processes directories to find and hash files, storing the results in a data map.
  */
-public class DirectoryProcessor {
-    private static final Logger logger = Logger.getLogger(DirectoryProcessor.class.getName());
+public class directoryprocessor {
+    private static final Logger logger = Logger.getLogger(directoryprocessor.class.getName());
 
     /**
      * Processes a directory to find and hash files, storing the results in a data map.
@@ -26,18 +26,18 @@ public class DirectoryProcessor {
      * @throws IOException               If an I/O error occurs.
      * @throws NoSuchAlgorithmException  If the MD5 algorithm is not available.
      */
-    public static void processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap) throws IOException, NoSuchAlgorithmException {
+    public static void processDirectory(Path startPath, boolean isRecursive, Map<String, List<data>> dataMap) throws IOException, NoSuchAlgorithmException {
         try (Stream<Path> stream = isRecursive ? Files.walk(startPath).parallel() : Files.list(startPath).parallel()) {
             stream.filter(Files::isRegularFile)
                     .forEach(v -> {
                         try {
                             BasicFileAttributes attr = Files.readAttributes(v, BasicFileAttributes.class);
                             String fileHash = md5hash(v);
-                            Data data = new Data(v.toString(), fileHash, attr.size(), attr.creationTime().toString(), attr.lastModifiedTime().toString());
+                            data d = new data(v.toString(), fileHash, attr.size(), attr.creationTime().toString(), attr.lastModifiedTime().toString());
 
                             // Synchronize access to the dataMap
                             synchronized (dataMap) {
-                                dataMap.computeIfAbsent(fileHash, k -> new ArrayList<>()).add(data);
+                                dataMap.computeIfAbsent(fileHash, k -> new ArrayList<>()).add(d);
                             }
                         } catch (IOException | NoSuchAlgorithmException e) {
                             logger.log(Level.SEVERE, "Error processing file: " + v, e);

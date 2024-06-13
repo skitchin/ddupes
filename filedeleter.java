@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * Class for deleting duplicate files and empty directories.
  */
-public class FileDeleter {
+public class filedeleter {
 
     /**
      * Deletes duplicate files from the data map, keeping the most recently modified file.
@@ -15,7 +15,7 @@ public class FileDeleter {
      * @param preservePaths The list of directory paths to preserve from deletion.
      * @param isDryRun      Whether to perform a dry run (no actual deletions).
      */
-    public static void deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun) {
+    public static void deleteFiles(Map<String, List<data>> dataMap, List<String> preservePaths, boolean isDryRun) {
         Set<Path> directoriesToCheck = new HashSet<>();
 
         // Delete all but the most recently modified file for each duplicate hash
@@ -26,28 +26,28 @@ public class FileDeleter {
 
                 // Keep the first file and delete the rest
                 boolean first = true;
-                for (Data data : fileList) {
-                    Path filePath = Paths.get(data.getFileName());
+                for (data d : fileList) {
+                    Path filePath = Paths.get(d.getFileName());
                     Path parentDir = filePath.getParent();
                     if (first) {
-                        System.out.println("[+] Kept: " + data.getFileName());
+                        System.out.println("[+] Kept: " + d.getFileName());
                         first = false;
                     } else {
                         if (preservePaths.stream().noneMatch(preservePath -> filePath.startsWith(preservePath))) {
                             if (isDryRun) {
-                                System.out.println("[-] Would delete: " + data.getFileName());
+                                System.out.println("[-] Would delete: " + d.getFileName());
                             } else {
                                 try {
                                     Files.deleteIfExists(filePath);
-                                    System.out.println("[-] Deleted: " + data.getFileName());
+                                    System.out.println("[-] Deleted: " + d.getFileName());
                                     directoriesToCheck.add(parentDir);
                                 } catch (IOException e) {
-                                    System.err.println("Failed to delete: " + data.getFileName());
+                                    System.err.println("Failed to delete: " + d.getFileName());
                                     e.printStackTrace();
                                 }
                             }
                         } else {
-                            System.out.println("[!] Skipped deletion from preserved directory: " + data.getFileName());
+                            System.out.println("[!] Skipped deletion from preserved directory: " + d.getFileName());
                         }
                     }
                 }

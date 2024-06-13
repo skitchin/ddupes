@@ -11,8 +11,8 @@ import java.util.logging.*;
  * Main class for the DDupes application.
  * It finds and processes duplicate files in specified directories based on command-line arguments.
  */
-public class DDupes {
-    private static final Logger logger = Logger.getLogger(DDupes.class.getName());
+public class ddupes {
+    private static final Logger logger = Logger.getLogger(ddupes.class.getName());
     private static final String LOGGING_PROPERTIES_PATH = "/Users/scott/logging.properties";
 
     /**
@@ -24,7 +24,7 @@ public class DDupes {
      */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         configureLogging();
-        Map<String, List<Data>> dataMap = new HashMap<>();
+        Map<String, List<data>> dataMap = new HashMap<>();
 
         // Example command-line arguments
         args = new String[]{"-rs", "/users/scott/misc"};
@@ -39,7 +39,7 @@ public class DDupes {
             // Process each directory
             parsedArgs.directoryPaths.parallelStream().forEach(directoryPath -> {
                 try {
-                    DirectoryProcessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
+                    directoryprocessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
                 } catch (IOException | NoSuchAlgorithmException e) {
                     logger.log(Level.SEVERE, "Error processing directory: " + directoryPath, e);
                 }
@@ -50,10 +50,10 @@ public class DDupes {
                 System.out.println(temp.getFileName() + " :: " + temp.getFileHash() + " :: " + temp.getFileSize() + " :: " + temp.getFileCreationDate())
         ));
 
-        DuplicateFinder.findDupes(dataMap, parsedArgs.isSummary);
+        duplicatefinder.findDupes(dataMap, parsedArgs.isSummary);
 
         if (parsedArgs.isDelete) {
-            FileDeleter.deleteFiles(dataMap, parsedArgs.preservePaths, parsedArgs.isDryRun);
+            filedeleter.deleteFiles(dataMap, parsedArgs.preservePaths, parsedArgs.isDryRun);
         }
     }
 
@@ -64,7 +64,7 @@ public class DDupes {
      */
     private static void configureLogging() {
         // Check if logging.properties exists in resources
-        InputStream inputStream = DDupes.class.getResourceAsStream(LOGGING_PROPERTIES_PATH);
+        InputStream inputStream = ddupes.class.getResourceAsStream(LOGGING_PROPERTIES_PATH);
         if (inputStream != null) {
             // If exists, load logging configuration from file
             try {
