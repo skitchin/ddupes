@@ -39,10 +39,6 @@ public class ddupes {
         configureLogging();
         Map<String, List<data>> dataMap = new HashMap<>();
 
-        // Example command-line arguments
-        args = new String[]{"-rs", "/users/scott/misc"};
-//        args = new String[]{"-rdsn", "/users/scott/documents", "/users/scott/documents copy", "-p", "/users/scott/documents/test"};
-
         // Parse command-line arguments
         ParsedArgs parsedArgs = parseArguments(args);
 
