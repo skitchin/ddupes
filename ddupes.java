@@ -26,7 +26,7 @@ import java.util.logging.*;
 public class ddupes {
     private static final String VERSION = "0.0.1";
     private static final Logger logger = Logger.getLogger(ddupes.class.getName());
-    private static final String LOGGING_PROPERTIES_PATH = "/Users/scott/logging.properties";
+    private static final String LOGGING_PROPERTIES_PATH = "/logging.properties";
 
     /**
      * Main method for the DDupes application.
