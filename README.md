@@ -97,4 +97,5 @@ that may occur from the use of the ddupes program. Users are solely responsible 
 encouraged to back up important files before using the ddupes program.
 
 Copyright (c) 2024 DigitalBSD. All rights reserved.
+
 Copyright (c) 2024 Scott Kitchin. All rights reserved.
