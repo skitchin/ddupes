@@ -11,7 +11,7 @@ public class Main {
 
         // Example command-line arguments
         args = new String[]{"-rs", "/users/scott/misc"};
-//        args = new String[]{"-rdsn", "/users/scott/documents1", "/users/scott/documents1 copy", "-p", "/users/scott/preserve1", "/users/scott/preserve2"};
+//        args = new String[]{"-rdsn", "/users/scott/documents", "/users/scott/documents copy", "-p", "/users/scott/documents/test"};
 
         // Parse command-line arguments
         ParsedArgs parsedArgs = parseArguments(args);
@@ -24,7 +24,7 @@ public class Main {
                 try {
                     DirectoryProcessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
                 } catch (IOException | NoSuchAlgorithmException e) {
-                    logger.log(Level.SEVERE, "Error processing directory: " + directoryPath, e);
+                    System.out.println("Error processing directory: " + directoryPath);
                 }
             });
         }).join();
