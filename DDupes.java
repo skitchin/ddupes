@@ -1,12 +1,18 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
+import java.util.logging.*;
 
-public class Main {
+public class DDupes {
+    private static final Logger logger = Logger.getLogger(DDupes.class.getName());
+    private static final String LOGGING_PROPERTIES_PATH = "/Users/scott/logging.properties";
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+        configureLogging();
         Map<String, List<Data>> dataMap = new HashMap<>();
 
         // Example command-line arguments
@@ -24,7 +30,7 @@ public class Main {
                 try {
                     DirectoryProcessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
                 } catch (IOException | NoSuchAlgorithmException e) {
-                    System.out.println("Error processing directory: " + directoryPath);
+                    logger.log(Level.SEVERE, "Error processing directory: " + directoryPath, e);
                 }
             });
         }).join();
@@ -37,6 +43,40 @@ public class Main {
 
         if (parsedArgs.isDelete) {
             FileDeleter.deleteFiles(dataMap, parsedArgs.preservePaths, parsedArgs.isDryRun);
+        }
+    }
+
+    private static void configureLogging() {
+        // Check if logging.properties exists in resources
+        InputStream inputStream = DDupes.class.getResourceAsStream(LOGGING_PROPERTIES_PATH);
+        if (inputStream != null) {
+            // If exists, load logging configuration from file
+            try {
+                LogManager.getLogManager().readConfiguration(inputStream);
+                return;
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, "Error reading logging configuration: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        // If logging.properties doesn't exist, create it with default configurations
+        createDefaultLoggingProperties();
+    }
+
+    private static void createDefaultLoggingProperties() {
+        try (OutputStream outputStream = Files.newOutputStream(Paths.get(LOGGING_PROPERTIES_PATH))) {
+            Properties properties = new Properties();
+            properties.setProperty("handlers", "java.util.logging.ConsoleHandler");
+            properties.setProperty(".level", "INFO");
+            properties.setProperty("java.util.logging.ConsoleHandler.level", "INFO");
+            properties.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
+
+            properties.store(outputStream, "Default logging properties");
+            System.out.println("Created default logging.properties file.");
+        } catch (IOException e) {
+            System.err.println("Error creating default logging.properties: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
