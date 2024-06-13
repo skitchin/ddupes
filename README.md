@@ -1,6 +1,6 @@
-DDupes
+ddupes
 
-DDupes is a Java application for finding and handling duplicate files in specified directories. It provides functionality to recursively scan directories, compute file hashes, identify duplicates, and optionally delete duplicate files, keeping only the most recently modified file.
+ddupes is a Java application for finding and handling duplicate files in specified directories. It provides functionality to recursively scan directories, compute file hashes, identify duplicates, and optionally delete duplicate files, keeping only the most recently modified file.
 
 Features
 
@@ -29,8 +29,8 @@ Command-Line Arguments
 
 Example Usage
 
-    java DDupes -rs /users/scott/misc
-    java DDupes -rdsn /users/scott/documents /users/scott/documents_copy -p /users/scott/documents/test
+    java ddupes -rs /users/scott/misc
+    java ddupes -rdsn /users/scott/documents /users/scott/documents_copy -p /users/scott/documents/test
 
 Classes and Methods
 
@@ -53,13 +53,13 @@ DuplicateFinder
 
 Finds and displays duplicate files based on their hash values.
 
-    * findDupes(Map<String, List<Data>> dataMap, boolean isSummary): Finds and displays duplicate files.
+    * findDupes(Map<String, List<data>> dataMap, boolean isSummary): Finds and displays duplicate files.
 
 FileDeleter
 
 Deletes duplicate files and empty directories.
 
-    * deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
+    * deleteFiles(Map<String, List<data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
     * deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths): Deletes empty directories.
     * handleIOException(IOException e, Path path): Handles IOExceptions that may occur during file operations.
 
@@ -67,7 +67,7 @@ Data
 
 Represents a file with its associated metadata.
 
-    * Data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate): Constructs a new Data object with the specified file metadata.
+    * data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate): Constructs a new Data object with the specified file metadata.
     * getFileName(): Returns the name of the file.
     * getFileHash(): Returns the hash of the file.
     * getFileSize(): Returns the size of the file in bytes.
@@ -85,10 +85,10 @@ Build and Run
 3. Compile the Java files:
     javac -cp .:commons-codec-1.15.jar *.java
 4. Run the application:
-    java -cp .:commons-codec-1.15.jar DDupes
+    java -cp .:commons-codec-1.15.jar ddupes
 
 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-This README provides an overview of the DDupes application, detailing its features, usage, and the purpose of each class and method. For further information or detailed documentation, refer to the source code comments and Javadoc annotations.
+This README provides an overview of the ddupes application, detailing its features, usage, and the purpose of each class and method. For further information or detailed documentation, refer to the source code comments and Javadoc annotations.
