@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * Class for deleting duplicate files and empty directories.
  */
-public class filedeleter {
+public class FileDeleter {
 
     /**
      * Deletes duplicate files from the data map, keeping the most recently modified file.
@@ -15,7 +15,7 @@ public class filedeleter {
      * @param preservePaths The list of directory paths to preserve from deletion.
      * @param isDryRun      Whether to perform a dry run (no actual deletions).
      */
-    public static void deleteFiles(Map<String, List<data>> dataMap, List<String> preservePaths, boolean isDryRun) {
+    public static void deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun) {
         Set<Path> directoriesToCheck = new HashSet<>();
 
         // Delete all but the most recently modified file for each duplicate hash
@@ -26,7 +26,7 @@ public class filedeleter {
 
                 // Keep the first file and delete the rest
                 boolean first = true;
-                for (data d : fileList) {
+                for (Data d : fileList) {
                     Path filePath = Paths.get(d.getFileName());
                     Path parentDir = filePath.getParent();
                     if (first) {

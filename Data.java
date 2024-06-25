@@ -1,7 +1,7 @@
 /**
  * Represents a file with its associated metadata.
  */
-public class data {
+public class Data {
     private String fileName;
     private String fileHash;
     private Long fileSize;
@@ -17,7 +17,7 @@ public class data {
      * @param fileCreatedDate  The creation date of the file.
      * @param fileModifiedDate The last modified date of the file.
      */
-    public data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate) {
+    public Data(String fileName, String fileHash, Long fileSize, String fileCreatedDate, String fileModifiedDate) {
         this.fileName = fileName;
         this.fileHash = fileHash;
         this.fileSize = fileSize;

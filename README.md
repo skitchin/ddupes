@@ -37,34 +37,33 @@ Classes and Methods
 
 [ddupes]
 
-The main class that initializes logging, parses command-line arguments, processes directories, finds duplicates, and handles file deletions.
+The main class that parses command-line arguments, processes directories, finds duplicates, and handles file deletions.
 
     * main(String[] args): The entry point of the application.
-    * configureLogging(): Configures logging based on a properties file or creates a default configuration.
     * parseArguments(String[] args): Parses command-line arguments.
 
-[directoryprocessor]
+[DirectoryProcessor]
 
 Processes directories to find and hash files, storing the results in a data map.
 
     * processDirectory(Path startPath, boolean isRecursive, Map<String, List<Data>> dataMap): Processes a directory to find and hash files.
     * md5hash(Path file): Computes the MD5 hash of a file.
 
-[duplicatefinder]
+[DuplicateFinder]
 
 Finds and displays duplicate files based on their hash values.
 
-    * findDupes(Map<String, List<data>> dataMap, boolean isSummary): Finds and displays duplicate files.
+    * findDupes(Map<String, List<Data>> dataMap, boolean isSummary): Finds and displays duplicate files.
 
-[filedeleter]
+[FileDeleter]
 
 Deletes duplicate files and empty directories.
 
-    * deleteFiles(Map<String, List<data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
+    * deleteFiles(Map<String, List<Data>> dataMap, List<String> preservePaths, boolean isDryRun): Deletes duplicate files.
     * deleteDirectories(Set<Path> directoriesToCheck, List<String> preservePaths): Deletes empty directories.
     * handleIOException(IOException e, Path path): Handles IOExceptions that may occur during file operations.
 
-[data]
+[Data]
 
 Represents a file with its associated metadata.
 
@@ -74,10 +73,6 @@ Represents a file with its associated metadata.
     * getFileSize(): Returns the size of the file in bytes.
     * getFileCreationDate(): Returns the creation date of the file.
     * getFileModifiedDate(): Returns the last modified date of the file.
-
-Logging
-
-Logging is configured using a properties file located at /Users/scott/logging.properties. If the file does not exist, a default configuration is created.
 
 Build and Run
 
@@ -97,5 +92,4 @@ that may occur from the use of the ddupes program. Users are solely responsible 
 encouraged to back up important files before using the ddupes program.
 
 Copyright (c) 2024 DigitalBSD. All rights reserved.
-
 Copyright (c) 2024 Scott Kitchin. All rights reserved.
