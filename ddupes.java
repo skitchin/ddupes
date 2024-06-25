@@ -12,22 +12,17 @@
  */
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
-import java.util.logging.*;
 
 /**
  * Main class for the DDupes application.
  * It finds and processes duplicate files in specified directories based on command-line arguments.
  */
 public class ddupes {
-    private static final String VERSION = "0.0.1";
-    private static final Logger logger = Logger.getLogger(ddupes.class.getName());
-    private static final String LOGGING_PROPERTIES_PATH = "/logging.properties";
+    private static final String VERSION = "0.0.2";
 
     /**
      * Main method for the DDupes application.
@@ -37,8 +32,10 @@ public class ddupes {
      * @throws NoSuchAlgorithmException If the specified algorithm is not available.
      */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        configureLogging();
-        Map<String, List<data>> dataMap = new HashMap<>();
+        Map<String, List<Data>> dataMap = new HashMap<>();
+
+        //
+        args = new String[]{"-v", "-m", "256", "/users/scott/temppp"};
 
         // Parse command-line arguments
         ParsedArgs parsedArgs = parseArguments(args);
@@ -49,9 +46,9 @@ public class ddupes {
             // Process each directory
             parsedArgs.directoryPaths.parallelStream().forEach(directoryPath -> {
                 try {
-                    directoryprocessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
+                    DirectoryProcessor.processDirectory(Paths.get(directoryPath), parsedArgs.isRecursive, dataMap);
                 } catch (IOException | NoSuchAlgorithmException e) {
-                    logger.log(Level.SEVERE, "Error processing directory: " + directoryPath, e);
+                    System.out.println("Error processing directory: " + directoryPath);
                 }
             });
         }).join();
@@ -60,52 +57,10 @@ public class ddupes {
                 System.out.println(temp.getFileName() + " :: " + temp.getFileHash() + " :: " + temp.getFileSize() + " :: " + temp.getFileCreationDate())
         ));
 
-        duplicatefinder.findDupes(dataMap, parsedArgs.isSummary);
+        DuplicateFinder.findDupes(dataMap, parsedArgs.isSummary);
 
         if (parsedArgs.isDelete) {
-            filedeleter.deleteFiles(dataMap, parsedArgs.preservePaths, parsedArgs.isDryRun);
-        }
-    }
-
-    /**
-     * Configures logging for the application.
-     * If a logging properties file exists, it loads the configuration from the file.
-     * Otherwise, it creates a default logging properties file.
-     */
-    private static void configureLogging() {
-        // Check if logging.properties exists in resources
-        InputStream inputStream = ddupes.class.getResourceAsStream(LOGGING_PROPERTIES_PATH);
-        if (inputStream != null) {
-            // If exists, load logging configuration from file
-            try {
-                LogManager.getLogManager().readConfiguration(inputStream);
-                return;
-            } catch (IOException e) {
-                logger.log(Level.SEVERE, "Error reading logging configuration: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        // If logging.properties doesn't exist, create it with default configurations
-        createDefaultLoggingProperties();
-    }
-
-    /**
-     * Creates a default logging properties file with predefined configurations.
-     */
-    private static void createDefaultLoggingProperties() {
-        try (OutputStream outputStream = Files.newOutputStream(Paths.get(LOGGING_PROPERTIES_PATH))) {
-            Properties properties = new Properties();
-            properties.setProperty("handlers", "java.util.logging.ConsoleHandler");
-            properties.setProperty(".level", "INFO");
-            properties.setProperty("java.util.logging.ConsoleHandler.level", "INFO");
-            properties.setProperty("java.util.logging.ConsoleHandler.formatter", "java.util.logging.SimpleFormatter");
-
-            properties.store(outputStream, "Default logging properties");
-            System.out.println("Created default logging.properties file.");
-        } catch (IOException e) {
-            System.err.println("Error creating default logging.properties: " + e.getMessage());
-            e.printStackTrace();
+            FileDeleter.deleteFiles(dataMap, parsedArgs.preservePaths, parsedArgs.isDryRun);
         }
     }
 
@@ -120,6 +75,7 @@ public class ddupes {
         boolean isDelete = false;
         boolean isSummary = false;
         boolean isDryRun = false;
+        Long size = (long) 0;
         List<String> preservePaths = new ArrayList<>();
         List<String> directoryPaths = new ArrayList<>();
 
@@ -134,6 +90,11 @@ public class ddupes {
                     while (i + 1 < args.length && !args[i + 1].startsWith("-")) {
                         preservePaths.add(args[++i]);
                     }
+                }
+                if (arg.equals("-mt")) {
+                    size = Long.parseLong(args[i + 1]);
+                    System.out.println(args[i+1]);
+                    i++;
                 }
                 if (arg.equals("-v")) {
                     System.out.println("ddupes version: " + VERSION);
