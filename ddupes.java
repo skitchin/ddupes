@@ -32,7 +32,7 @@ public class ddupes {
      * @throws NoSuchAlgorithmException If the specified algorithm is not available.
      */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        Map<String, List<Data>> dataMap = new HashMap<>();
+        var dataMap = new HashMap<String, List<Data>>();
 
         //
         args = new String[]{"-v", "-m", "256", "/users/scott/temppp"};

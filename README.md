@@ -14,7 +14,7 @@ Features
 
 Requirements
 
-    Java 8 or higher
+    Java 17 or higher
     Apache Commons Codec library
 
 Usage
