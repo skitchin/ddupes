@@ -28,14 +28,9 @@ public class ddupes {
      * Main method for the DDupes application.
      *
      * @param args Command-line arguments specifying directories and options.
-     * @throws IOException               If an I/O error occurs.
-     * @throws NoSuchAlgorithmException If the specified algorithm is not available.
      */
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+    public static void main(String[] args) {
         var dataMap = new HashMap<String, List<Data>>();
-
-        //
-        args = new String[]{"-v", "-m", "256", "/users/scott/temppp"};
 
         // Parse command-line arguments
         ParsedArgs parsedArgs = parseArguments(args);
@@ -75,7 +70,7 @@ public class ddupes {
         boolean isDelete = false;
         boolean isSummary = false;
         boolean isDryRun = false;
-        Long size = (long) 0;
+        long size = 0;
         List<String> preservePaths = new ArrayList<>();
         List<String> directoryPaths = new ArrayList<>();
 
